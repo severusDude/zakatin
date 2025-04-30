@@ -15,32 +15,39 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'fakir',
-                'description' => 'orang yang tidak memiliki sumber daya ekonomi yang cukup untuk memenuhi kebutuhan dasar mereka, seperti makanan, pakaian, dan tempat tinggal.',
+                'name' => 'FAKIR',
+                'label' => 'Fakir',
+                'description' => 'The poor with no means',
             ],
             [
-                'name' => 'miskin',
-                'description' => 'orang yang memiliki sumber daya ekonomi yang terbatas, tetapi masih dapat memenuhi kebutuhan dasar mereka, namun dengan kesulitan.',
+                'name' => 'MISKIN',
+                'label' => 'Miskin',
+                'description' => 'The needy with limited means',
             ],
             [
-                'name' => 'amilin',
-                'description' => 'orang yang memiliki sumber daya ekonomi yang cukup untuk memenuhi kebutuhan dasar mereka, serta memiliki kemampuan untuk membantu orang lain yang membutuhkan.',
+                'name' => 'AMILIN',
+                'label' => 'Amilin',
+                'description' => 'Zakat Administrator',
             ],
             [
-                'name' => 'mualaf',
-                'description' => 'orang yang baru saja memeluk agama Islam, dan masih memerlukan bantuan dan dukungan untuk memahami dan mengamalkan ajaran-ajaran agama.',
+                'name' => 'MUALAF',
+                'label' => 'Mualaf',
+                'description' => 'New converts to Islam',
             ],
             [
-                'name' => 'ghorim',
-                'description' => 'orang yang memiliki utang yang besar, dan memerlukan bantuan untuk melunasi utang mereka.',
+                'name' => 'GHORIM',
+                'label' => 'Ghorim',
+                'description' => 'People in debt',
             ],
             [
-                'name' => 'fisabillilah',
-                'description' => 'orang yang berjuang di jalan Allah, seperti para mujahidin, dan mereka yang berkorban untuk kepentingan agama dan umat.',
+                'name' => 'FISABILLILAH',
+                'label' => 'Fi Sabillilah',
+                'description' => 'In the cause of Allah',
             ],
             [
-                'name' => 'ibnusabil',
-                'description' => 'orang yang berperang di jalan Allah, seperti para prajurit yang berjuang melawan musuh-musuh agama, dan mereka yang terluka atau gugur dalam pertempuran.',
+                'name' => 'IBNUSABIL',
+                'label' => 'Ibnu Sabil',
+                'description' => 'Wayfarer/traveler',
             ],
         ];
 
