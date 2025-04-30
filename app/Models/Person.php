@@ -16,6 +16,21 @@ class Person extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
+    public function familyMembers()
+    {
+        return $this->hasMany(Person::class, 'family_id');
+    }
+
+    public function familyHead()
+    {
+        return $this->belongsTo(Person::class, 'family_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public static function booted(): void
     {
         static::creating(function ($model) {
