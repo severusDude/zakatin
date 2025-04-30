@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,12 @@ class PersonFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'category_id' => function () {
+                // Get a random existing category UUID
+                return Category::inRandomOrder()->first()?->id;
+            },
+            'family_id' => null
         ];
     }
 }
