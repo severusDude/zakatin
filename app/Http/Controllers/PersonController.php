@@ -12,7 +12,9 @@ class PersonController extends Controller
      */
     public function index()
     {
-        //
+        return view('persons.index', [
+            'persons' => Person::paginate(10)
+        ]);
     }
 
     /**
