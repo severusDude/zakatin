@@ -2,27 +2,34 @@
     <div class="flex flex-col w-full gap-4">
         <span class="text-2xl font-semibold">Warga</span>
 
-        <form method="GET" class="flex gap-4">
+        <div class="w-full flex justify-between">
 
-            <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}"
-                class="w-1/3 px-4 py-2 rounded-lg outline outline-gray-200 focus:outline-black transition-all ease-in-out">
+            <form method="GET" class="flex gap-4 w-2/3">
 
-            <!-- Filter by category -->
-            <div class="w-fit md:w-fit">
-                <select name="category"
-                    class="w-fit px-4 py-2 rounded-lg outline outline-gray-200 focus:outline-black transition-all ease-in-out">
-                    <option value="">Semua Kategori</option>
-                    @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" {{ request('category')==$category->id ? 'selected' : '' }}>
-                        {{ $category->label }}
-                    </option>
-                    @endforeach
-                </select>
-            </div>
+                <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}"
+                    class="w-full px-4 py-2 rounded-lg outline outline-gray-200 focus:outline-black transition-all ease-in-out">
 
-            <button type="submit"
-                class="px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/95 transition-all ease-in-out">Submit</button>
-        </form>
+                <!-- Filter by category -->
+                <div class="w-fit md:w-fit">
+                    <select name="category"
+                        class="w-fit px-4 py-2 rounded-lg outline outline-gray-200 focus:outline-black transition-all ease-in-out">
+                        <option value="">Semua Kategori</option>
+                        @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ request('category')==$category->id ? 'selected' : '' }}>
+                            {{ $category->label }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <button type="submit"
+                    class="px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/95 transition-all ease-in-out">Submit</button>
+            </form>
+            <a href="{{ route('persons.create') }}"
+                class="flex gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/95 transition-all ease-in-out select-none">
+                <flux:icon.plus /> Tambah Warga
+            </a>
+        </div>
 
         <span class="pl-2 text-1xl font-semibold">{{ $persons->count() }} Warga ditemukan</span>
 

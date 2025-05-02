@@ -1,22 +1,17 @@
 <x-layouts.app>
-    <form action="{{ route('persons.update', $person->id) }}" method="POST">
-        @method('PUT')
+    <form action="{{ route('persons.store') }}" method="POST">
         @csrf
 
         <header class="w-full flex justify-between items-center my-4">
             <a href="{{ route('persons.index') }}" class="flex gap-2 items-center">
                 <x-heroicon-o-arrow-left width="24" height="24" />
-                <h1 class="text-3xl font-bold">{{ $person->name }}</h1>
+                <h1 class="text-3xl font-bold">{{ __('Tambahkan Warga') }}</h1>
             </a>
             <div class="flex gap-2">
                 <button type="submit"
                     class="px-4 py-2 rounded-md bg-accent transition-all ease-in-out hover:bg-accent/95 text-accent-foreground">
                     Save
                 </button>
-                <a href="{{ route('persons.show', $person->id) }}"
-                    class="px-4 py-2 rounded-md outline outline-gray-200 transition hover:bg-gray-200/80">
-                    Cancel
-                </a>
             </div>
         </header>
 
@@ -25,14 +20,13 @@
             <div class="space-y-2">
                 <h2 class="text-lg font-medium text-gray-700">Nama</h2>
                 <input type="text" name="name" class="w-full p-4 outline outline-gray-200 rounded-lg text-black"
-                    placeholder="Nama" value="{{ old('name', $person->name) }}" />
+                    placeholder="Nama" />
             </div>
 
             <div class="space-y-2">
                 <h2 class="text-lg font-medium text-gray-700">Deskripsi</h2>
-                <textarea name="description" class="w-full p-4 outline outline-gray-200 rounded-lg text-black"
-                    placeholder="Deskripsi..."
-                    rows="4">{{ old('description', $person->description ?? 'Tidak ada deskripsi') }}</textarea>
+                <textarea name="description" class="w-full p-4 outline outline-gray-200 rounded-lg text-black" rows="4"
+                    placeholder="Deskripsi..."></textarea>
             </div>
 
             <div class="space-y-2">
@@ -41,18 +35,13 @@
                     <select name="category_id"
                         class="w-fit px-4 py-2 rounded-lg outline outline-gray-200 focus:outline-black transition-all ease-in-out">
                         @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ $person->category_id==$category->id ? 'selected' : '' }}>
-                            {{ $category->label }}
-                        </option>
+                        <option value="{{ $category->id }}">{{ $category->label }}</option>
                         @endforeach
                     </select>
                 </div>
-                {{-- <div class="px-3 py-1.5 rounded-full bg-gray-100 font-semibold w-fit">
-                    <p class="text-gray-700 text-sm">{{ $person->category->label }}</p>
-                </div> --}}
             </div>
 
-            @if ($person->familyMembers->isNotEmpty())
+            {{-- @if ($person->familyMembers->isNotEmpty())
 
             <div class="space-y-2">
                 <h2 class="text-lg font-medium text-gray-700">Anggota Keluarga</h2>
@@ -112,7 +101,7 @@
                 <a href="{{ $person->familyHead ? route('persons.show', $person->familyHead->id) : '#'}}">{{
                     $person->familyHead->name ?? 'Tidak ada kepala keluarga' }}</a>
             </div>
-            @endif
+            @endif --}}
         </section>
     </form>
 </x-layouts.app>

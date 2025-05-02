@@ -23,7 +23,7 @@ class PersonController extends Controller
             $query->where('category_id', $request->category);
         }
 
-        $persons = $query->get();
+        $persons = $query->orderByDesc('updated_at')->get();
 
         return view('persons.index', [
             'persons' => $persons,
@@ -37,7 +37,7 @@ class PersonController extends Controller
      */
     public function create()
     {
-        //
+        return view('persons.create', ['categories' => Category::all()]);
     }
 
     /**
@@ -45,7 +45,15 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'category_id' => 'required',
+        ]);
+
+        Person::create($validated);
+
+        return redirect()->route('persons.index');
     }
 
     /**
