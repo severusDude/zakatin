@@ -1,11 +1,7 @@
 <x-layouts.app>
     <header class="w-full flex justify-between items-center my-4">
-        <a href="{{ url()->previous() }}" class="flex gap-2 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                    d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                    clip-rule="evenodd" />
-            </svg>
+        <a href="{{ route('persons.index') }}" class="flex gap-2 items-center">
+            <x-heroicon-o-arrow-left width="24" height="24" />
             <h1 class="text-3xl font-bold">{{ $person->name }}</h1>
         </a>
         <div class="flex gap-2">
@@ -29,23 +25,29 @@
 
         <div class="space-y-2">
             <h2 class="text-lg font-medium text-gray-700">Nama</h2>
-            <div class="p-4 outline outline-gray-200 rounded-lg">
-                <p class="text-black">{{ $person->name }}</p>
-            </div>
+            <input type="text" name="name" class="w-full p-4 outline outline-gray-200 rounded-lg text-black" readonly
+                value="{{ $person->name }}" />
         </div>
 
         <div class="space-y-2">
             <h2 class="text-lg font-medium text-gray-700">Deskripsi</h2>
-            <div class="p-4 outline outline-gray-200 rounded-lg">
-                <p class="text-black">{{ $person->description ?? 'Tidak ada deskripsi' }}</p>
-            </div>
+            <textarea name="description" class="w-full p-4 outline outline-gray-200 rounded-lg text-black" readonly
+                rows="4">{{ $person->description ?? 'Tidak ada deskripsi' }}</textarea>
         </div>
 
         <div class="space-y-2">
             <h2 class="text-lg font-medium text-gray-700">Kategori</h2>
-            <div class="px-3 py-1.5 rounded-full bg-gray-100 font-semibold w-fit">
-                <p class="text-gray-700 text-sm">{{ $person->category->label }}</p>
+            <div class="w-fit md:w-fit">
+                <select name="category_id" disabled
+                    class="w-fit px-4 py-2 rounded-lg outline outline-gray-200 focus:outline-black transition-all ease-in-out">
+                    <option value="{{ $person->category->id }}" selected>
+                        {{ $person->category->label }}
+                    </option>
+                </select>
             </div>
+            {{-- <div class="px-3 py-1.5 rounded-full bg-gray-100 font-semibold w-fit">
+                <p class="text-gray-700 text-sm">{{ $person->category->label }}</p>
+            </div> --}}
         </div>
 
         @if ($person->familyMembers->isNotEmpty())
@@ -57,6 +59,7 @@
                 <table class="w-full table-auto">
                     <thead class="bg-gray-200">
                         <tr class="text-sm text-left text-gray-700">
+                            <th class="pl-3 py-3 w-fit"></th>
                             <th class="p-3 w-full">Nama</th>
                             <th class="px-5 py-3 text-center">Kategori</th>
                             <th class="px-5 py-3 text-center w-fit">Status</th>
@@ -66,6 +69,10 @@
                     <tbody>
                         @foreach ($person->familyMembers as $member)
                         <tr class="border-t hover:bg-gray-50">
+                            <td class="pl-3 py-2 w-fit text-center">
+                                <input type="checkbox" name="member" value="{{ $member->id }}"
+                                    wire:model="selectedMembers">
+                            </td>
                             <td class="p-3 w-full">{{ $member->name }}</td>
                             <td class="px-5 py-3 w-fit text-nowrap">
                                 <span
@@ -83,6 +90,12 @@
                                     class="inline-block text-nowrap px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">Belum
                                     Bayar</span>
                                 @endif
+                            </td>
+                            <td class="px-5 py-2 w-fit text-center">
+                                <div
+                                    class="w-fit p-2 rounded-md bg-gray-100 text-black hover:bg-gray-200/80 transition-all ease-in-out">
+                                    <x-heroicon-o-x-mark width="20" height="20" />
+                                </div>
                             </td>
                         </tr>
                         @endforeach

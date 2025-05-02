@@ -53,7 +53,9 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
-        $person->load('category')->load('familyMembers');
+        // dd('here');
+
+        $person->load('category')->load('familyMembers')->load('familyHead');
 
         return view('persons.show', ['person' => $person]);
     }
@@ -65,9 +67,9 @@ class PersonController extends Controller
     {
         // dd($person);
 
-        $person->load('category')->load('familyMembers');
+        $person->load('category')->load('familyMembers')->load('familyHead');
 
-        return view('persons.edit', ['person' => $person]);
+        return view('persons.edit', ['person' => $person, 'categories' => Category::all()]);
     }
 
     /**
@@ -75,7 +77,18 @@ class PersonController extends Controller
      */
     public function update(Request $request, Person $person)
     {
-        //
+        // dd($request->all());
+
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'category_id' => 'required',
+        ]);
+
+        $person->fill($validated);
+        $person->save();
+
+        return redirect()->route('persons.show', ['person' => $person]);
     }
 
     /**
