@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Person extends Model
 {
@@ -32,6 +33,16 @@ class Person extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function scopePayer(Builder $query): void
+    {
+        $query->where('category_id', 1);
+    }
+
+    public function scopeRecipient(Builder $query): void
+    {
+        $query->whereNot('category_id', 1);
     }
 
     public static function booted(): void

@@ -15,10 +15,12 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('person_id')->references('id')->on('persons');
             $table->integer('year');
-            $table->string('method');
+            $table->enum('type', ['uang', 'beras']);
             $table->double('amount');
             $table->boolean('status');
             $table->timestamps();
+
+            $table->unique(['person_id', 'year']);
         });
     }
 
