@@ -19,6 +19,8 @@
                     wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                 <flux:navlist.item icon="users" :href="route('persons.index')"
                     :current="request()->routeIs('persons.*')" wire:navigate>{{ __('Warga') }}</flux:navlist.item>
+                <flux:navlist.item icon="stack" :href="route('payments.index')"
+                    :current="request()->routeIs('payments.*')" wire:navigate>{{ __('Zakat') }}</flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
 
