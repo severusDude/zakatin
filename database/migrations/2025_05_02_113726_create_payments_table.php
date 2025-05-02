@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('year');
             $table->string('method');
             $table->double('amount');
-            $table->string('status');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
