@@ -38,25 +38,27 @@
                 <tbody>
                     @foreach ($persons as $person)
                     <tr class="border-t hover:bg-gray-50">
-                        <td class="p-3 w-full">{{ $person->name }}</td>
-                        <td class="px-5 py-3 w-fit text-nowrap">{{ $person->category->label }}</td>
-                        <td class="px-5 py-3 w-fit">
-                            @if ($person->has_paid)
-                            <span
-                                class="inline-block px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">Sudah
-                                Bayar</span>
-                            @else
-                            <span
-                                class="inline-block text-nowrap px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">Belum
-                                Bayar</span>
-                            @endif
-                        </td>
-                        <td class="px-5 py-3 text-center">
-                            <button
-                                class="px-4 py-2 rounded-md outline outline-gray-200 transition-all ease-in-out hover:bg-gray-200/80"
-                                href="{{ route('persons.edit', $person->id) }}">Edit</button>
-                            {{-- <button class="px-4 py-2 rounded-md bg-red-800 text-white">Delete</button> --}}
-                        </td>
+                        <a href="{{ route('persons.show', $person->id) }}">
+                            <td class="p-3 w-full">{{ $person->name }}</td>
+                            <td class="px-5 py-3 w-fit text-nowrap">{{ $person->category->label }}</td>
+                            <td class="px-5 py-3 w-fit">
+                                @if ($person->has_paid)
+                                <span
+                                    class="inline-block px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">Sudah
+                                    Bayar</span>
+                                @else
+                                <span
+                                    class="inline-block text-nowrap px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">Belum
+                                    Bayar</span>
+                                @endif
+                            </td>
+                            <td class="px-5 py-3 text-center flex gap-2">
+                                <a class="px-4 py-2 rounded-md outline outline-gray-200 transition-all ease-in-out hover:bg-gray-200/80 select-none"
+                                    href="{{ route('persons.show', $person->id) }}">Show</a>
+                                <a class="px-4 py-2 rounded-md bg-red-700 text-white transition-all ease-in-out hover:bg-red-800 select-none text-nowrap"
+                                    href="{{ route('persons.destroy', $person->id) }}">Delete</a>
+                            </td>
+                        </a>
                     </tr>
                     @endforeach
                 </tbody>

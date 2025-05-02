@@ -53,7 +53,9 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
-        //
+        $person->load('category')->load('familyMembers');
+
+        return view('persons.show', ['person' => $person]);
     }
 
     /**
@@ -61,7 +63,11 @@ class PersonController extends Controller
      */
     public function edit(Person $person)
     {
-        //
+        // dd($person);
+
+        $person->load('category')->load('familyMembers');
+
+        return view('persons.edit', ['person' => $person]);
     }
 
     /**
@@ -77,6 +83,8 @@ class PersonController extends Controller
      */
     public function destroy(Person $person)
     {
-        //
+        $person->delete();
+
+        return redirect()->route('persons.index');
     }
 }
