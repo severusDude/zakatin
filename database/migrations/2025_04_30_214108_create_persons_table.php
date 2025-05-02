@@ -21,7 +21,8 @@ return new class extends Migration
         });
 
         Schema::table('persons', function (Blueprint $table) {
-            $table->foreignUuid('family_id')->nullable()->references('id')->on('persons');
+            $table->foreignUuid('family_id')->nullable()->references('id')->on('persons')->onDelete('set null');
+            $table->softDeletes();
         });
     }
 
@@ -30,6 +31,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('persons', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
+
         Schema::dropIfExists('persons');
     }
 };

@@ -55,8 +55,15 @@
                             <td class="px-5 py-3 text-center flex gap-2">
                                 <a class="px-4 py-2 rounded-md outline outline-gray-200 transition-all ease-in-out hover:bg-gray-200/80 select-none"
                                     href="{{ route('persons.show', $person->id) }}">Show</a>
-                                <a class="px-4 py-2 rounded-md bg-red-700 text-white transition-all ease-in-out hover:bg-red-800 select-none text-nowrap"
-                                    href="{{ route('persons.destroy', $person->id) }}">Delete</a>
+                                <form action="{{ route('persons.destroy', $person->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="px-4 py-2 rounded-md bg-red-700 text-white transition-all ease-in-out hover:bg-red-800 select-none text-nowrap"
+                                        onclick="return confirm('Are you sure you want to delete this person?')">
+                                        Delete
+                                    </button>
+                                </form>
                             </td>
                         </a>
                     </tr>
