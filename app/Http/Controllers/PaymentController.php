@@ -12,7 +12,13 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        $query = Payment::query()->orderByDesc('status')->with('person');
+
+        $payments = $query->get();
+
+        return view('payments.index', [
+            'payments' => $payments
+        ]);
     }
 
     /**
