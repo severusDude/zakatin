@@ -1,6 +1,6 @@
 <x-layouts.app>
     <div class="flex flex-col w-full gap-4">
-        <span class="text-2xl font-semibold">Payment</span>
+        <span class="text-2xl font-semibold">Zakat</span>
 
         <div class="w-full flex justify-between">
 
@@ -25,6 +25,9 @@
                 <thead class="bg-gray-200">
                     <tr class="text-sm text-left text-gray-700">
                         <th class="p-3 w-full">Nama</th>
+                        <th class="px-5 py-3 text-center w-fit">Tahun</th>
+                        <th class="px-5 py-3 text-center w-fit">Tipe</th>
+                        <th class="px-5 py-3 text-center w-fit">Nominal</th>
                         <th class="px-5 py-3 text-center w-fit">Status</th>
                         <th class="px-5 py-3 text-center w-fit">Action</th>
                     </tr>
@@ -33,6 +36,24 @@
                     @foreach ($payments as $payment)
                     <tr class="border-t hover:bg-gray-50">
                         <td class="p-3 w-full">{{ $payment->person->name }}</td>
+                        <td class="px-5 py-3 w-fit text-nowrap text-center">
+                            <span
+                                class="inline-block px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full">
+                                {{ $payment->year }}
+                            </span>
+                        </td>
+                        <td class="px-5 py-3 w-fit text-nowrap text-center">
+                            <span
+                                class="inline-block px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full">
+                                {{ $payment->type }}
+                            </span>
+                        </td>
+                        <td class="px-5 py-3 w-fit text-nowrap text-center">
+                            <span
+                                class="inline-block px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full">
+                                {{ $payment->amount }}
+                            </span>
+                        </td>
                         <td class="px-5 py-3 w-fit">
                             @if ($payment->status)
                             <span
@@ -45,17 +66,8 @@
                             @endif
                         </td>
                         <td class="px-5 py-3 text-center flex gap-2">
-                            <a class="px-4 py-2 rounded-md outline outline-gray-200 transition-all ease-in-out hover:bg-gray-200/80 select-none"
+                            <a class="px-4 py-2 rounded-md @if ($payment->status) text-accent-foreground bg-accent hover:bg-accent/95 @else outline outline-gray-200 hover:bg-gray-200/80 @endif transition-all ease-in-out select-none "
                                 href="{{ route('payments.show', $payment->id) }}">Show</a>
-                            <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                    class="px-4 py-2 rounded-md bg-red-700 text-white transition-all ease-in-out hover:bg-red-800 select-none text-nowrap"
-                                    onclick="return confirm('Are you sure you want to delete this person?')">
-                                    Delete
-                                </button>
-                            </form>
                         </td>
                     </tr>
                     @endforeach

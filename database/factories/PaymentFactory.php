@@ -16,18 +16,23 @@ class PaymentFactory extends Factory
      */
     public function definition(): array
     {
-        $type = (string) collect(['uang', 'beras'])->random();
-        if ($type === 'uang') {
-            $amount = rand(10000, 100000);
-        } else {
-            $amount = rand(1, 100);
+        $status = (bool) rand(0, 1);
+        $type = 'uang';
+        $amount = 0;
+        if ($status) {
+            $type = (string) collect(['uang', 'beras'])->random();
+            if ($type === 'uang') {
+                $amount = rand(10000, 100000);
+            } else {
+                $amount = rand(1, 100);
+            }
         }
 
         return [
             'year' => 2025,
             'type' => $type,
             'amount' => $amount,
-            'status' => (bool) rand(0, 1)
+            'status' => $status
         ];
     }
 }
