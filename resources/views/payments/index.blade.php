@@ -2,6 +2,24 @@
     <div class="flex flex-col w-full gap-4">
         <span class="text-2xl font-semibold">Payment</span>
 
+        <div class="w-full flex justify-between">
+
+            <form method="GET" class="flex gap-4 w-2/3">
+
+                <input type="text" name="search" placeholder="Cari..." value="{{ request('search') }}"
+                    class="w-full px-4 py-2 rounded-lg outline outline-gray-200 focus:outline-black transition-all ease-in-out">
+
+                <button type="submit"
+                    class="px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/95 transition-all ease-in-out">Submit</button>
+            </form>
+            <a href="{{ route('payments.create') }}"
+                class="flex gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/95 transition-all ease-in-out select-none">
+                <flux:icon.plus /> Tambah
+            </a>
+        </div>
+
+        <span class="pl-2 text-1xl font-semibold">{{ $payments->count() }} Pembayaran ditemukan</span>
+
         <div class="w-full border border-gray-300 rounded-lg text-md">
             <table class="w-full table-auto">
                 <thead class="bg-gray-200">
@@ -28,7 +46,7 @@
                         </td>
                         <td class="px-5 py-3 text-center flex gap-2">
                             <a class="px-4 py-2 rounded-md outline outline-gray-200 transition-all ease-in-out hover:bg-gray-200/80 select-none"
-                                href="">Show</a>
+                                href="{{ route('payments.show', $payment->id) }}">Show</a>
                             <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')

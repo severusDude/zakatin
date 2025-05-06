@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Payment;
+use App\Models\Person;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -10,14 +12,20 @@ class PaymentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $query = Payment::query()->orderByDesc('status')->with('person');
+        $query = Payment::query()->with('person');
 
-        $payments = $query->get();
+        if ($request->filled('search')) {
+            $query->whereHas('person', function ($q) use ($request) {
+                $q->where('name', 'ilike', '%' . $request->search . '%');
+            });
+        }
+
+        $payments = $query->orderByDesc('status')->get();
 
         return view('payments.index', [
-            'payments' => $payments
+            'payments' => $payments,
         ]);
     }
 
@@ -42,7 +50,11 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //
+        $payment->load('person');
+
+        return view('payments.show', [
+            'payment' => $payment
+        ]);
     }
 
     /**

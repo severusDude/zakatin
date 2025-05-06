@@ -35,6 +35,11 @@ class Person extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     public function scopePayer(Builder $query): void
     {
         $query->where('category_id', 1);
