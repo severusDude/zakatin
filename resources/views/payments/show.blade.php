@@ -49,9 +49,10 @@
                             <th class="px-5 py-3 text-center w-fit">Status</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="border-t border-black">
+                        @foreach ($payment->person->familyMembers as $member)
                         <tr class="border-t hover:bg-gray-50">
-                            <td class="p-3 w-full">{{ $payment->person->name }}</td>
+                            <td class="p-3 w-full">{{ $member->name }}</td>
                             <td class="px-5 py-3 w-fit text-nowrap text-center">
                                 <span
                                     class="inline-block px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full">
@@ -82,6 +83,7 @@
                                 @endif
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -34,7 +34,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        //
+        return view('payments.create');
     }
 
     /**
@@ -42,7 +42,16 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'person_id' => 'required',
+            'period' => 'required',
+            'type' => 'required',
+            'amount' => 'required'
+        ]);
+
+        Payment::create($validated);
+
+        return redirect()->route('payments.index');
     }
 
     /**
@@ -50,7 +59,8 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        $payment->load('person');
+        // load current payment(person) and its family members
+        $payment->load('person.familyMembers');
 
         return view('payments.show', [
             'payment' => $payment
