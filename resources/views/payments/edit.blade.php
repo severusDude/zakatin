@@ -5,22 +5,14 @@
             <h1 class="text-3xl font-bold">{{ $payment->person->name }}</h1>
         </a>
         <div class="flex gap-2">
-            @if ($payment->status)
-            <button class="bg-accent text-accent-foreground px-4 py-2 rounded-lg" disabled>Lunas</button>
-            @else
-            <a href="{{ route('payments.edit', $payment->id) }}"
-                class="px-4 py-2 rounded-md outline outline-gray-200 transition hover:bg-gray-200/80 select-none">
-                Isi
-            </a>
-            {{-- <form action="{{ route('payments.markComplete', $payment->id) }}" method="post">
+            <form action="{{ route('payments.update', $payment->id) }}" method="post">
                 @csrf
                 @method('put')
                 <button type="submit"
-                    class="px-4 py-2 rounded-md outline outline-gray-200 transition hover:bg-gray-200/80 select-none">
+                    class="px-4 py-2 text-accent-foreground rounded-md bg-accent transition-all ease-in-out hover:bg-accent/95 select-none">
                     Tandai Lunas
                 </button>
-            </form> --}}
-            @endif
+            </form>
         </div>
     </header>
 
@@ -45,6 +37,7 @@
                 <table class="w-full table-auto">
                     <thead class="border-b border-black">
                         <tr class="text-sm text-left text-gray-700">
+                            <th class="w-fit p-3 text-center"></th>
                             <th class="p-3 w-full">Nama</th>
                             <th class="px-5 py-3 text-center">Tahun</th>
                             <th class="px-5 py-3 text-center w-fit">Tipe</th>
@@ -54,6 +47,7 @@
                     </thead>
                     <tbody class="border-t border-black">
                         <tr class="border-t hover:bg-gray-50">
+                            <td class="p-3 w-fit text-center"><input type="checkbox" name="selectedMembers"></td>
                             <td class="p-3 w-full">{{ $payment->person->name }}</td>
                             <td class="px-5 py-3 w-fit text-nowrap text-center">
                                 <span
@@ -87,6 +81,7 @@
                         </tr>
                         @foreach ($payment->person->familyMembers as $member)
                         <tr class="border-t hover:bg-gray-50">
+                            <td class="p-3 w-fit text-center"><input type="checkbox" name="selectedMembers"></td>
                             <td class="p-3 w-full">{{ $member->name }}</td>
                             <td class="px-5 py-3 w-fit text-nowrap text-center">
                                 <span

@@ -72,7 +72,11 @@ class PaymentController extends Controller
      */
     public function edit(Payment $payment)
     {
-        //
+        $payment->load('person.familyMembers');
+
+        return view('payments.edit', [
+            'payment' => $payment
+        ]);
     }
 
     /**
