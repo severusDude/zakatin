@@ -12,7 +12,7 @@ class DistributionController extends Controller
      */
     public function index()
     {
-        //
+        return view('distributions.index');
     }
 
     /**
