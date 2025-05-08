@@ -34,7 +34,11 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        return view('payments.create');
+        $persons = Person::all();
+
+        return view('payments.create', [
+            'persons' => $persons
+        ]);
     }
 
     /**
@@ -44,10 +48,12 @@ class PaymentController extends Controller
     {
         $validated = $request->validate([
             'person_id' => 'required',
-            'period' => 'required',
+            'year' => 'required',
             'type' => 'required',
-            'amount' => 'required'
+            'amount' => 'required',
         ]);
+
+        $validated['status'] = true;
 
         Payment::create($validated);
 
