@@ -10,9 +10,21 @@ class DistributionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('distributions.index');
+        $query = Distribution::query()->with('person');
+
+        if ($request->filled('search')) {
+            $query->whereHas('person', function ($q) use ($request) {
+                $q->where('name', 'ilike', '%' . $request->search . '%');
+            });
+        }
+
+        $distributions = $query->orderByDesc('updated_at')->get();
+
+        return view('distributions.index', [
+            'distributions' => $distributions
+        ]);
     }
 
     /**
@@ -20,7 +32,7 @@ class DistributionController extends Controller
      */
     public function create()
     {
-        //
+        return view('distributions.create');
     }
 
     /**
@@ -36,7 +48,7 @@ class DistributionController extends Controller
      */
     public function show(Distribution $distribution)
     {
-        //
+        return view('distributions.show', ['distribution' => $distribution]);
     }
 
     /**
@@ -44,7 +56,7 @@ class DistributionController extends Controller
      */
     public function edit(Distribution $distribution)
     {
-        //
+        return view('distributions.edit', ['distribution' => $distribution]);
     }
 
     /**
