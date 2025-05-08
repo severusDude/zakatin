@@ -57,12 +57,10 @@
                         <td class="px-5 py-3 w-fit">
                             @if ($distribution->status)
                             <span
-                                class="inline-block text-nowrap px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">Sudah
-                                Bayar</span>
+                                class="inline-block text-nowrap px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">Diterima</span>
                             @else
                             <span
-                                class="inline-block text-nowrap px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">Belum
-                                Bayar</span>
+                                class="inline-block text-nowrap px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">Menunggu</span>
                             @endif
                         </td>
                         <td class="px-5 py-3 text-center flex gap-2">

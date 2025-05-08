@@ -32,7 +32,7 @@
             <div class="space-y-2">
                 <h2 class="text-lg font-semibold text-gray-700">Jenis</h2>
                 <select name="type" required>
-                    <option value="uang">Moneyyy</option>
+                    <option value="uang">Uang</option>
                     <option value="beras">Beras</option>
                 </select>
             </div>

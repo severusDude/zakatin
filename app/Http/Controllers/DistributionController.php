@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Person;
 use App\Models\Distribution;
 use Illuminate\Http\Request;
 
@@ -32,7 +33,11 @@ class DistributionController extends Controller
      */
     public function create()
     {
-        return view('distributions.create');
+        $persons = Person::all();
+
+        return view('distributions.create', [
+            'persons' => $persons
+        ]);
     }
 
     /**
@@ -40,7 +45,18 @@ class DistributionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'person_id' => 'required',
+            'year' => 'required',
+            'type' => 'required',
+            'amount' => 'required',
+        ]);
+
+        $validated['status'] = true;
+
+        Distribution::create($validated);
+
+        return redirect()->route('distributions.index');
     }
 
     /**
