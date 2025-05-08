@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             PersonSeeder::class,
-            PaymentSeeder::class
+            PaymentSeeder::class,
+            DistributionSeeder::class
         ]);
     }
 }

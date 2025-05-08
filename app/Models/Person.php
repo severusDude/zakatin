@@ -40,6 +40,11 @@ class Person extends Model
         return $this->hasMany(Payment::class);
     }
 
+    public function distributions()
+    {
+        return $this->hasMany(Distribution::class);
+    }
+
     public function scopePayer(Builder $query): void
     {
         $query->where('category_id', 1);
