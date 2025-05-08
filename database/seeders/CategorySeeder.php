@@ -15,6 +15,11 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
+                'name' => 'MAMPU',
+                'label' => 'Mampu',
+                'description' => 'The capable',
+            ],
+            [
                 'name' => 'FAKIR',
                 'label' => 'Fakir',
                 'description' => 'The poor with no means',
