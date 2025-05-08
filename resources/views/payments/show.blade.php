@@ -12,14 +12,6 @@
                 class="px-4 py-2 rounded-md outline outline-gray-200 transition hover:bg-gray-200/80 select-none">
                 Isi
             </a>
-            {{-- <form action="{{ route('payments.markComplete', $payment->id) }}" method="post">
-                @csrf
-                @method('put')
-                <button type="submit"
-                    class="px-4 py-2 rounded-md outline outline-gray-200 transition hover:bg-gray-200/80 select-none">
-                    Tandai Lunas
-                </button>
-            </form> --}}
             @endif
         </div>
     </header>
@@ -53,71 +45,11 @@
                         </tr>
                     </thead>
                     <tbody class="border-t border-black">
-                        <tr class="border-t hover:bg-gray-50">
-                            <td class="p-3 w-full">{{ $payment->person->name }}</td>
-                            <td class="px-5 py-3 w-fit text-nowrap text-center">
-                                <span
-                                    class="inline-block px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full">
-                                    {{ $payment->year }}
-                                </span>
-                            </td>
-                            <td class="px-5 py-3 w-fit text-nowrap text-center">
-                                <span
-                                    class="inline-block px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full">
-                                    {{ $payment->type }}
-                                </span>
-                            </td>
-                            <td class="px-5 py-3 w-fit text-nowrap text-center">
-                                <span
-                                    class="inline-block px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full">
-                                    {{ $payment->amount }}
-                                </span>
-                            </td>
-                            <td class="px-5 py-3 w-fit">
-                                @if ($payment->status)
-                                <span
-                                    class="inline-block text-nowrap px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">Sudah
-                                    Bayar</span>
-                                @else
-                                <span
-                                    class="inline-block text-nowrap px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">Belum
-                                    Bayar</span>
-                                @endif
-                            </td>
-                        </tr>
-                        @foreach ($payment->person->familyMembers as $member)
-                        <tr class="border-t hover:bg-gray-50">
-                            <td class="p-3 w-full">{{ $member->name }}</td>
-                            <td class="px-5 py-3 w-fit text-nowrap text-center">
-                                <span
-                                    class="inline-block px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full">
-                                    {{ $payment->year }}
-                                </span>
-                            </td>
-                            <td class="px-5 py-3 w-fit text-nowrap text-center">
-                                <span
-                                    class="inline-block px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full">
-                                    {{ $payment->type }}
-                                </span>
-                            </td>
-                            <td class="px-5 py-3 w-fit text-nowrap text-center">
-                                <span
-                                    class="inline-block px-2 py-1 text-sm font-semibold text-gray-700 bg-gray-100 rounded-full">
-                                    {{ $payment->amount }}
-                                </span>
-                            </td>
-                            <td class="px-5 py-3 w-fit">
-                                @if ($payment->status)
-                                <span
-                                    class="inline-block text-nowrap px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">Sudah
-                                    Bayar</span>
-                                @else
-                                <span
-                                    class="inline-block text-nowrap px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">Belum
-                                    Bayar</span>
-                                @endif
-                            </td>
-                        </tr>
+                        @php
+                        $persons = collect([$payment->person])->concat($payment->person->familyMembers);
+                        @endphp
+                        @foreach ($persons as $person)
+                        <x-payment-row :payment="$payment" :person="$person" :showCheckbox="false" :isChecked="false" />
                         @endforeach
                     </tbody>
                 </table>
