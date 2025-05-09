@@ -1,6 +1,18 @@
 <x-layouts.app :title="__('Dashboard')">
-    <header>
+    <header class="flex items-center justify-between w-full">
         <h1 class="text-2xl font-semibold">{{ __('Dashboard') }}</h1>
+        <div class="flex gap-2 w-fit">
+            <a href="{{ route('reports.download') }}?format=pdf"
+                class="flex items-center gap-2 px-4 py-3 rounded-md outline outline-gray-200 hover:bg-gray-200 transition-all ease-in-out">
+                <flux:icon.download width="16" height="16" />
+                <span class="font-semibold">{{ __('PDF') }}</span>
+            </a>
+            <a href="{{ route('reports.download') }}?format=docx"
+                class="flex items-center gap-2 px-4 py-3 rounded-md outline outline-gray-200 hover:bg-gray-200 transition-all ease-in-out">
+                <flux:icon.download width="16" height="16" />
+                <span class="font-semibold">{{ __('DOCX') }}</span>
+            </a>
+        </div>
     </header>
     <hr class="my-4">
     <div class="flex flex-col w-full max-h-screen gap-8">
@@ -26,10 +38,16 @@
         <div class="flex w-full gap-6">
             <div class="flex flex-col w-full p-4 rounded-lg h-60 outline outline-gray-200">
                 <div class="flex items-center gap-4">
-                    <div class="bg-gray-200 rounded-full size-16"></div>
+                    <div class="bg-gray-200 rounded-lg size-16"></div>
                     <div class="space-y-2">
-                        <h3 class="text-sm text-gray-700">Jumlah Warga</h3>
+                        <h3 class="text-sm text-gray-700">{{ __('Jumlah Warga') }}</h3>
                         <span class="text-2xl font-bold">200</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between">
+                        <h3>{{ __('Muzakki') }}</h3>
+                        <span></span>
                     </div>
                 </div>
             </div>

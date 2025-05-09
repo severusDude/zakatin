@@ -15,7 +15,15 @@ Route::get('/', function () {
 //     ->middleware(['auth', 'verified'])
 //     ->name('dashboard');
 
-Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::prefix('dashboard')
+    ->middleware(['auth', 'verified'])
+    ->controller(DashboardController::class)
+    ->group(function () {
+        Route::get('', 'index')->name('dashboard');
+        Route::get('download', 'download')->name('reports.download');
+    });
 
 Route::resource('persons', PersonController::class);
 Route::resource('payments', PaymentController::class);

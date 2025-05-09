@@ -22,4 +22,17 @@ class DashboardController extends Controller
             'statistic' => $statistic
         ]);
     }
+
+    public function download(Request $request)
+    {
+        if ($request->filled('format')) {
+            if ($request->format == 'pdf') {
+                dd('pdf');
+            } else {
+                dd('word');
+            }
+
+            return redirect()->route('dashboard');
+        }
+    }
 }
