@@ -1,13 +1,13 @@
 <x-layouts.app>
 
     <header class="w-full flex justify-between items-center my-4">
-        <a href="{{ route('payments.index') }}" class="flex gap-2 items-center">
+        <a href="{{ route('distributions.index') }}" class="flex gap-2 items-center">
             <x-heroicon-o-arrow-left width="24" height="24" />
-            <h1 class="text-2xl font-bold">{{ __('Tambah Zakat') }}</h1>
+            <h1 class="text-2xl font-bold">{{ __('Tambah Mustahiq') }}</h1>
         </a>
     </header>
 
-    <form action="{{ route('payments.store') }}" method="POST">
+    <form action="{{ route('distributions.store') }}" method="POST">
         @csrf
 
         <section class="flex flex-col gap-4">
