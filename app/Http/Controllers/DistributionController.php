@@ -64,6 +64,8 @@ class DistributionController extends Controller
      */
     public function show(Distribution $distribution)
     {
+        $distribution->load('person');
+
         return view('distributions.show', ['distribution' => $distribution]);
     }
 
@@ -72,6 +74,8 @@ class DistributionController extends Controller
      */
     public function edit(Distribution $distribution)
     {
+        $distribution->load('person');
+
         return view('distributions.edit', ['distribution' => $distribution]);
     }
 
@@ -80,7 +84,17 @@ class DistributionController extends Controller
      */
     public function update(Request $request, Distribution $distribution)
     {
-        //
+        $validated = $request->validate([
+            'person_id' => 'required',
+            'year' => 'required',
+            'type' => 'required',
+            'amount' => 'required',
+        ]);
+
+        $distribution->fill($validated);
+        $distribution->save();
+
+        return redirect()->route('distributions.index');
     }
 
     /**
