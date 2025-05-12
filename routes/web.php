@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Livewire\Volt\Volt;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PersonController;
@@ -10,9 +11,19 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
+
+// Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::prefix('dashboard')
     ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    ->controller(DashboardController::class)
+    ->group(function () {
+        Route::get('', 'index')->name('dashboard');
+        Route::get('download', 'download')->name('reports.download');
+    });
 
 Route::resource('persons', PersonController::class);
 Route::resource('payments', PaymentController::class);
