@@ -8,14 +8,8 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DistributionController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('homepage');
 })->name('home');
-
-// Route::view('dashboard', 'dashboard')
-//     ->middleware(['auth', 'verified'])
-//     ->name('dashboard');
-
-// Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::prefix('dashboard')
     ->middleware(['auth', 'verified'])
