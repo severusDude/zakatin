@@ -70,7 +70,7 @@ class DashboardController extends Controller
             // Find distributions related to this category through persons
             $distributions = Distribution::query()->whereHas('person', function ($query) use ($category) {
                 $query->where('category_id', $category->id);
-            });
+            })->get();
 
             // Calculate totals for each type (uang and beras)
             $results[$category->label] = [
