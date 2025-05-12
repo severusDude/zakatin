@@ -1,15 +1,27 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use Livewire\Volt\Volt;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PersonController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\DistributionController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('homepage');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::prefix('dashboard')
     ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    ->controller(DashboardController::class)
+    ->group(function () {
+        Route::get('', 'index')->name('dashboard');
+        Route::get('download', 'download')->name('reports.download');
+    });
+
+Route::resource('persons', PersonController::class);
+Route::resource('payments', PaymentController::class);
+Route::resource('distributions', DistributionController::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -19,4 +31,4 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

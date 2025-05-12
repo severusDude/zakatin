@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import 'tailwindcss';
 @import '../../vendor/livewire/flux/dist/flux.css';
 
@@ -9,7 +10,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Plus Jakarta Sans';
 
     --color-zinc-50: #fafafa;
     --color-zinc-100: #f5f5f5;
@@ -26,6 +27,20 @@
     --color-accent: var(--color-neutral-800);
     --color-accent-content: var(--color-neutral-800);
     --color-accent-foreground: var(--color-white);
+
+    --color-primary-50: #effefb;
+    --color-primary-100: #c7fff4;
+    --color-primary-200: #90ffe9;
+    --color-primary-300: #51f7dc;
+    --color-primary-400: #1de4ca;
+    --color-primary-500: #04c8b1;
+    --color-primary-600: #009688;
+    --color-primary-700: #058075;
+    --color-primary-800: #0a655f;
+    --color-primary-900: #0d544f;
+    --color-primary-950: #003332;
+
+
 }
 
 @layer theme {
