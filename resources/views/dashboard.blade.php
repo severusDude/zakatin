@@ -44,7 +44,7 @@
                         </div>
                         <div class="space-y-1 h-full">
                             <h3 class="text-gray-700">{{ __('Jumlah Warga') }}</h3>
-                            <span class="text-2xl font-bold">{{ $statistic['persons'] }} Warga</span>
+                            <span class="text-2xl font-bold">{{ $total_warga }} Warga</span>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="space-y-1 h-full">
                             <h3 class="text-gray-700">{{ __('Total Uang') }}</h3>
-                            <span class="text-2xl font-bold">Rp {{ $statistic['collectedMoney'] }}</span>
+                            <span class="text-2xl font-bold">Rp {{ number_format($uang_terkumpul, 0, ',', '.') }}</span>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,8 @@
                         </div>
                         <div class="space-y-1 h-full">
                             <h3 class="text-gray-700">{{ __('Total Beras') }}</h3>
-                            <span class="text-2xl font-bold">{{ $statistic['collectedRice'] }} Kg</span>
+                            <span class="text-2xl font-bold">{{ number_format($beras_terkumpul, 2, ',', '.') }}
+                                Kg</span>
                         </div>
                     </div>
                 </div>
@@ -74,27 +75,29 @@
             <div class="flex w-full justify-between gap-4">
                 <div class="flex flex-col w-full gap-2">
                     <h3 class="text-gray-700">{{ __('Total Muzakki') }}</h3>
-                    <span class="text-2xl font-bold">{{ $statistic['payments'] }} orang</span>
+                    <span class="text-2xl font-bold">{{ $total_muzakki }} orang</span>
                 </div>
                 <div class="flex flex-col w-full gap-2">
                     <h3 class="text-gray-700">{{ __('Total Mustahiq') }}</h3>
-                    <span class="text-2xl font-bold">{{ $statistic['mustahiq'] }} orang</span>
+                    <span class="text-2xl font-bold">{{ $total_mustahiq }} orang</span>
                 </div>
                 <div class="flex flex-col w-full gap-2">
                     <h3 class="text-gray-700">{{ __('Zakat Uang') }}</h3>
-                    <span class="text-2xl font-bold">Rp {{ $statistic['collectedMoney'] }}</span>
+                    <span class="text-2xl font-bold">Rp {{ number_format($uang_terkumpul, 0, ',', '.') }}</span>
                 </div>
                 <div class="flex flex-col w-full gap-2">
                     <h3 class="text-gray-700">{{ __('Zakat Beras') }}</h3>
-                    <span class="text-2xl font-bold">{{ $statistic['collectedRice'] }} Kg</span>
+                    <span class="text-2xl font-bold">{{ number_format($beras_terkumpul, 2, ',', '.') }} Kg</span>
                 </div>
                 <div class="flex flex-col w-full gap-2">
                     <h3 class="text-gray-700">{{ __('Distribusi Uang') }}</h3>
-                    <span class="text-2xl font-bold">Rp {{ $statistic['distributed']['uang'] }}</span>
+                    <span class="text-2xl font-bold">Rp {{ number_format($results['total']['uang'], 0, ',', '.')
+                        }}</span>
                 </div>
                 <div class="flex flex-col w-full gap-2">
                     <h3 class="text-gray-700">{{ __('Distribusi Beras') }}</h3>
-                    <span class="text-2xl font-bold">{{ $statistic['distributed']['beras'] }} Kg</span>
+                    <span class="text-2xl font-bold">{{ number_format($results['total']['beras'], 2, ',', '.') }}
+                        Kg</span>
                 </div>
             </div>
         </div>
