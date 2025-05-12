@@ -7,7 +7,7 @@
                 <flux:icon.download width="16" height="16" />
                 <span class="font-semibold">{{ __('PDF') }}</span>
             </a>
-            <a href="{{ route('reports.download') }}?format=docx" target="_blank"
+            <a href="{{ route('reports.download') }}?format=docx" target="_blank" disabled
                 class="flex items-center gap-2 px-4 py-3 rounded-md outline outline-gray-200 hover:bg-gray-200 transition-all ease-in-out">
                 <flux:icon.download width="16" height="16" />
                 <span class="font-semibold">{{ __('DOCX') }}</span>
