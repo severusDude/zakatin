@@ -16,7 +16,7 @@ class PaymentFactory extends Factory
      */
     public function definition(): array
     {
-        $status = (bool) rand(0, 1);
+        $status = true;
         $type = 'uang';
         $amount = 0;
         if ($status) {
