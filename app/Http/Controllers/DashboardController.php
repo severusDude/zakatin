@@ -14,36 +14,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $persons = Person::count();
-        $muzakki = Payment::query()->whereHas('person', function ($q) {
-            $q->where('family_id', null);
-        })->count();
-        $mustahiq = Person::recipient()->count();
-        $payments = Payment::where('status', true)->count();
-        $distributions = Payment::where('status', true)->count();
-        $collectedMoney = Payment::where('type', 'uang')->sum('amount');
-        $collectedRice = Payment::where('type', 'beras')->sum('amount');
-        $distributed = [
-            'uang' => Distribution::where('type', 'uang')->sum('amount'),
-            'beras' => Distribution::where('type', 'beras')->sum('amount'),
-        ];
+        $statistic = $this->prepareReportData();
 
-        $statistic = compact(
-            'persons',
-            'muzakki',
-            'mustahiq',
-            'payments',
-            'distributions',
-            'collectedMoney',
-            'collectedRice',
-            'distributed'
-        );
-
-        // dd($statistic);
-
-        return view('dashboard', [
-            'statistic' => $statistic
-        ]);
+        return view('dashboard', $statistic);
     }
 
     public function download(Request $request)
@@ -61,8 +34,21 @@ class DashboardController extends Controller
 
     protected function zakatReport()
     {
+        $data = $this->prepareReportData();
+
+        // Generate PDF
+        $pdf = Pdf::loadView('reports.distribution', $data);
+        $pdf->setPaper('a4', 'landscape');
+
+        return $pdf->download('laporan-zakat-fitrah-' . $data['tahun'] . '.pdf');
+    }
+
+    protected function prepareReportData()
+    {
         $tahun = date('Y');
         $tanggal_cetak = Carbon::now()->isoFormat('dddd, D MMMM Y');
+
+        $total_warga = Person::count();
 
         $categories = Category::recipient()->get();
         $muzakki = Payment::query()->get();
@@ -84,7 +70,7 @@ class DashboardController extends Controller
             // Find distributions related to this category through persons
             $distributions = Distribution::query()->whereHas('person', function ($query) use ($category) {
                 $query->where('category_id', $category->id);
-            });
+            })->get();
 
             // Calculate totals for each type (uang and beras)
             $results[$category->label] = [
@@ -99,11 +85,10 @@ class DashboardController extends Controller
             'beras' => Distribution::where('type', 'beras')->sum('amount'),
         ];
 
-        // dd($results);
-
-        $data = compact(
+        return compact(
             'tahun',
             'tanggal_cetak',
+            'total_warga',
             'categories',
             'total_muzakki',
             'total_mustahiq',
@@ -114,13 +99,5 @@ class DashboardController extends Controller
             'beras_terkumpul',
             'results'
         );
-
-        // dd($data);
-
-        // Generate PDF
-        $pdf = Pdf::loadView('reports.distribution', $data);
-        $pdf->setPaper('a4', 'landscape');
-
-        return $pdf->download('laporan-zakat-fitrah-' . $data['tahun'] . '.pdf');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Person;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,15 +16,30 @@ class PersonFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = Person::class;
+
     public function definition(): array
     {
         return [
+            'id' => fake()->uuid(),
             'name' => fake()->name(),
-            'category_id' => function () {
-                // Get a random existing category UUID
-                return Category::inRandomOrder()->first()?->id;
-            },
-            'family_id' => null
+            'description' => fake()->paragraph(),
+            'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
         ];
+    }
+
+    public function familyHead(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'family_id' => null,
+        ]);
+    }
+
+    public function familyMember(Person $familyHead): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'family_id' => $familyHead->id,
+            'category_id' => $familyHead->category_id,
+        ]);
     }
 }
